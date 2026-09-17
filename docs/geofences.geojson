@@ -1,0 +1,73 @@
+{
+  "type": "FeatureCollection",
+  "name": "Audioguide Filderstadt-Bernhausen (Testregion Gotthard-Müller-Straße)",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "station-1",
+        "name": "Gotthard-Müller-Straße West",
+        "description": "Westliches Ende der Gotthard-Müller-Straße. Startpunkt des Rundgangs.",
+        "audio": "audio/station-1.mp3",
+        "radius": 60,
+        "color": "#d9534f"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.20550, 48.67525]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "station-2",
+        "name": "Gotthard-Müller-Straße Ost",
+        "description": "Östliches Ende der Straße, Übergang zur Wohnbebauung.",
+        "audio": "audio/station-2.mp3",
+        "radius": 50,
+        "color": "#e6a020"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.21300, 48.67580]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "station-3",
+        "name": "Bernhausen Ortsmitte",
+        "description": "Rund um den Ortskern von Filderstadt-Bernhausen.",
+        "audio": "audio/station-3.mp3",
+        "radius": 75,
+        "color": "#8e44ad"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.21030, 48.67310]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "zone-nord",
+        "name": "Testzone Nord (Polygon)",
+        "description": "Beispielhaftes Flächen-Geofence nördlich der Gotthard-Müller-Straße.",
+        "audio": "audio/zone-nord.mp3",
+        "color": "#2e8b57"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [9.20500, 48.67750],
+            [9.21150, 48.67750],
+            [9.21180, 48.67620],
+            [9.20520, 48.67620],
+            [9.20500, 48.67750]
+          ]
+        ]
+      }
+    }
+  ]
+}
