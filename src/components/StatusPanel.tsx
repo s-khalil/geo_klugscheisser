@@ -118,17 +118,17 @@ export function StatusPanel({
         <h2>Audio</h2>
         {audio.current ? (
           <p>
-            <span className="badge badge--ok">{audio.speaking ? 'Sprachausgabe' : 'Spielt'}</span>{' '}
+            <span className="badge badge--ok">
+              {audio.current.paused ? 'pausiert' : audio.current.mode === 'tts' ? 'Sprachausgabe' : 'Audiodatei'}
+            </span>{' '}
             {audio.current.name}
-            <br />
-            <code className="muted">{audio.current.audioUrl.split('/').pop()}</code>
           </p>
         ) : (
           <p className="muted">Keine Wiedergabe aktiv.</p>
         )}
 
         {audio.queue.length > 0 ? (
-          <p className="muted">In Warteschlange: {audio.queue.map((t) => t.name).join(', ')}</p>
+          <p className="muted">In Warteschlange: {audio.queue.map((item) => item.name).join(', ')}</p>
         ) : null}
 
         <dl className="details">
@@ -136,11 +136,11 @@ export function StatusPanel({
           <dd>
             {audio.lastPlayed ? (
               <>
-                {audio.lastPlayed.name} ·{' '}
-                <code>{audio.lastPlayed.audioUrl.split('/').pop()}</code>
+                {audio.lastPlayed.name}
                 <div className="muted">
-                  {formatTime(audio.lastPlayed.finishedAt)}
-                  {audio.lastPlayed.viaSpeech ? ' · über Sprachausgabe (Platzhalter-MP3)' : ''}
+                  {formatTime(audio.lastPlayed.finishedAt)} ·{' '}
+                  {audio.lastPlayed.mode === 'tts' ? 'Sprachausgabe' : 'Audiodatei'}
+                  {audio.lastPlayed.aborted ? ' · abgebrochen' : ''}
                 </div>
               </>
             ) : (

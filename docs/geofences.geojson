@@ -1,7 +1,203 @@
 {
   "type": "FeatureCollection",
-  "name": "Audioguide Filderstadt-Bernhausen (Testregion Gotthard-Müller-Straße)",
+  "name": "Geo-Audioguide – Stationen",
   "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cb-stuttgarter-platz",
+        "name": "Stuttgarter Platz",
+        "description": "Der Platz, den die Stadtbahn teilt.",
+        "text": "Du stehst auf dem Stuttgarter Platz. 543 Meter lang, 44 Meter breit, und mitten hindurch fährt die Stadtbahn. Geplant wurde der Platz 1858 im Hobrecht-Plan, seinen Namen bekam er 1892. Der Bahnhof Charlottenburg war da schon in Betrieb: eröffnet 1882, entworfen von Ernst Dircksen. Er teilt den Platz bis heute in einen Nord- und einen Südteil. 1893 und 1894 entstanden an der Westseite repräsentative Wohnhäuser, 1895 kamen die Grünanlagen dazu. 1904 standen hier große Palmen und Blumenbeete. Nach 1945 war der Stuttgarter Platz eine Hochburg des Schwarzhandels. In den 1960er Jahren machte die Kommune I den Platz über Berlin hinaus bekannt, in den 1970er Jahren gründeten sich die ersten Bürgerinitiativen. 2008 wurde der südliche Grünzug neu gestaltet. Seit 2011 trägt er einen eigenen Namen: Margarete-und-Arthur-Eloesser-Park.",
+        "radius": 90,
+        "color": "#c0392b",
+        "tags": [
+          "Stadtgeschichte",
+          "Verkehr",
+          "Nachkriegszeit"
+        ],
+        "sources": [
+          {
+            "title": "Stuttgarter Platz – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Stuttgarter_Platz",
+            "retrieved": "2026-09-18"
+          }
+        ],
+        "region": "Berlin-Charlottenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.30229,
+          52.50521
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cb-currywurst",
+        "name": "Wo die Currywurst erfunden wurde",
+        "description": "Gedenktafel an der Kantstraße 101.",
+        "text": "An dieser Ecke, Kantstraße 101 und Kaiser-Friedrich-Straße 57, hängt eine Gedenktafel für eine Imbissbudenbesitzerin. Herta Heuwer verkaufte hier ab Mitte August 1949. Am 4. September 1949 bot sie zum ersten Mal an, was sie Spezial Curry-Bratwurst nannte. Ihre Soße ließ sie schützen, unter dem Namen Chillup, zusammengezogen aus Chili und Ketchup. Angemeldet hat sie das Warenzeichen am 21. Februar 1958, eingetragen wurde es am 21. Januar 1959 unter der Nummer 721319. Das Geschäft wuchs: zeitweise arbeiteten 19 Verkäuferinnen für sie. Die Gedenktafel wurde am 29. Juni 2003 enthüllt, am Vorabend ihres 90. Geburtstags, gestaltet von Reinhard Jacob. Herta Heuwer wurde 1913 in Königsberg geboren und starb 1999 in Berlin.",
+        "radius": 45,
+        "color": "#e67e22",
+        "tags": [
+          "Alltagsgeschichte",
+          "Essen",
+          "Nachkriegszeit"
+        ],
+        "sources": [
+          {
+            "title": "Herta Heuwer – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Herta_Heuwer",
+            "retrieved": "2026-09-18"
+          }
+        ],
+        "region": "Berlin-Charlottenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.30278,
+          52.50657
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cb-kant-garagen",
+        "name": "Kant-Garagen",
+        "description": "Parkhaus von 1930 mit Doppelhelix-Rampe.",
+        "text": "Vor dir steht ein Parkhaus von 1930, und es ist ein Denkmal. Die Kant-Garagen entstanden 1929 und 1930 nach Plänen von Bruno Lohmüller, Oskar Korschelt und Jakob Renker, gemeinsam mit Hermann Zweigenthal und Richard Paulick. Der Bau kostete 1,5 Millionen Reichsmark. Sechs Geschosse, ein Stahlbetonskelett, Platz für rund 300 Autos. Das Besondere steckt innen: eine Wendelfahrbahn in Form einer Doppelhelix. Auffahrende und abfahrende Wagen begegnen sich dadurch nie. 1930 gab es in ganz Europa nur zwei Hochgaragen mit einer solchen doppelgängigen Rampe. Heute ist dies die älteste erhaltene Hochgarage Deutschlands, seit 1991 steht sie unter Denkmalschutz. 132 originale Schiebetorboxen von 1930 hatten sich erhalten, im Oktober 2017 wurden sie ausgebaut. Inzwischen arbeiten in dem Haus Büros und eine Galerie.",
+        "radius": 50,
+        "color": "#2980b9",
+        "tags": [
+          "Architektur",
+          "Neue Sachlichkeit",
+          "Denkmal"
+        ],
+        "sources": [
+          {
+            "title": "Kant-Garagen – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Kant-Garagen",
+            "retrieved": "2026-09-18"
+          },
+          {
+            "title": "Kant-Garagenpalast – Bezirksamt Charlottenburg-Wilmersdorf",
+            "url": "https://www.berlin.de/ba-charlottenburg-wilmersdorf/ueber-den-bezirk/bauwerke/gebaeude-und-anlagen/buero-und-geschaeftshaeuser/artikel.283551.php",
+            "retrieved": "2026-09-18"
+          }
+        ],
+        "region": "Berlin-Charlottenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.31182,
+          52.50608
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cb-karl-august-platz",
+        "name": "Karl-August-Platz",
+        "description": "Kirch-, Markt- und Schmuckplatz seit 1894.",
+        "text": "Der Karl-August-Platz wurde am 1. November 1894 angelegt, ausdrücklich als Kirch-, Markt- und Schmuckplatz. Alle drei Aufgaben erfüllt er bis heute. 10.500 Quadratmeter misst er. Den Namen bekam er 1897, nach Karl August von Sachsen-Weimar-Eisenach, Großherzog und Freund Goethes. In der Mitte steht die Trinitatiskirche, gebaut von 1896 bis 1898 nach Plänen von Johannes Vollmer und Heinrich Jassoy. Der Wochenmarkt kehrte 1949 zurück. Er steht mittwochs von 8 bis 13 Uhr und samstags von 8 bis 14 Uhr. 1950 wurde der Platz umgestaltet, damals entstanden zwei Kinderspielplätze. Sein 125-jähriges Bestehen feierte er am 21. September 2019.",
+        "radius": 70,
+        "color": "#27ae60",
+        "tags": [
+          "Stadtgeschichte",
+          "Kirche",
+          "Markt"
+        ],
+        "sources": [
+          {
+            "title": "Karl-August-Platz – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Karl-August-Platz",
+            "retrieved": "2026-09-18"
+          }
+        ],
+        "region": "Berlin-Charlottenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.31097,
+          52.50835
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cb-synagoge-pestalozzistrasse",
+        "name": "Synagoge Pestalozzistraße",
+        "description": "Synagoge im Hinterhof, seit 1947 wieder in Betrieb.",
+        "text": "Hinter der Fassade der Pestalozzistraße 14 liegt, im Hinterhof, eine Synagoge. Gebaut wurde sie 1911 und 1912 nach Plänen von Ernst Dorn, gestiftet von Betty Sophie Jacobsohn. 1915 wurde sie offizielle Synagoge der Jüdischen Gemeinde. Am 9. November 1938 brannte sie von innen aus. Während des Krieges wurde das Gebäude als Wäscherei zweckentfremdet. 1947 wurde der Betsaal wieder eröffnet. Der Gottesdienst folgt hier einer durchkomponierten Liturgie mit Kantor, Orgel und gemischtem Chor, nach Kompositionen von Louis Lewandowski. 2014 wurden die Wandmalereien von 1912 restauriert. Die Synagoge steht zusammen mit den Wohnhäusern Pestalozzistraße 14 und 15 unter Denkmalschutz.",
+        "radius": 45,
+        "color": "#8e44ad",
+        "tags": [
+          "Jüdisches Berlin",
+          "NS-Zeit",
+          "Musik"
+        ],
+        "sources": [
+          {
+            "title": "Synagoge Pestalozzistraße – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Synagoge_Pestalozzistra%C3%9Fe",
+            "retrieved": "2026-09-18"
+          }
+        ],
+        "region": "Berlin-Charlottenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.31553,
+          52.50819
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cb-adenauerplatz",
+        "name": "Adenauerplatz",
+        "description": "Statue, Handtuchhaus und ein Gedenkstein.",
+        "text": "Der Adenauerplatz entstand 1973 und trägt den Namen des ersten Bundeskanzlers. 1974 wurde er umgestaltet, als unter ihm der Straßentunnel gebaut wurde. Seit 2005 steht hier eine Bronzestatue Konrad Adenauers, 1,85 Meter hoch, geschaffen von Helga Tiemann und enthüllt von Angela Merkel. In der Mitte des Platzes steht die Brunnenplastik Säule in der Brandung von Matschinsky-Denninghoff. Am Platz steht außerdem das schmalste Bürohaus Berlins, das Handtuchhaus, gebaut von 1992 bis 1994 nach Plänen von Helmut Jahn. Ein Stein erinnert an Mete Ekşi. Der 19-Jährige wurde hier am 27. Oktober 1991 bei einer Auseinandersetzung mit einem Baseballschläger getroffen und starb am 13. November 1991 nach 17 Tagen im Koma. Der Gedenkstein steht seit 1996. Seit 1992 vergeben die GEW Berlin und der Türkische Elternverein jährlich den Mete-Ekşi-Preis.",
+        "radius": 70,
+        "color": "#16a085",
+        "tags": [
+          "Stadtgeschichte",
+          "Kunst im Stadtraum",
+          "Erinnerung"
+        ],
+        "sources": [
+          {
+            "title": "Adenauerplatz (Berlin) – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Adenauerplatz_(Berlin)",
+            "retrieved": "2026-09-18"
+          },
+          {
+            "title": "Mete Ekşi – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Mete_Ek%C5%9Fi",
+            "retrieved": "2026-09-18"
+          }
+        ],
+        "region": "Berlin-Charlottenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.30732,
+          52.5
+        ]
+      }
+    },
     {
       "type": "Feature",
       "properties": {
@@ -10,11 +206,15 @@
         "description": "Westliches Ende der Gotthard-Müller-Straße. Startpunkt des Rundgangs.",
         "audio": "audio/station-1.mp3",
         "radius": 60,
-        "color": "#d9534f"
+        "color": "#d9534f",
+        "region": "Filderstadt-Bernhausen"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [9.20550, 48.67525]
+        "coordinates": [
+          9.2055,
+          48.67525
+        ]
       }
     },
     {
@@ -25,11 +225,15 @@
         "description": "Östliches Ende der Straße, Übergang zur Wohnbebauung.",
         "audio": "audio/station-2.mp3",
         "radius": 50,
-        "color": "#e6a020"
+        "color": "#e6a020",
+        "region": "Filderstadt-Bernhausen"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [9.21300, 48.67580]
+        "coordinates": [
+          9.213,
+          48.6758
+        ]
       }
     },
     {
@@ -40,11 +244,15 @@
         "description": "Rund um den Ortskern von Filderstadt-Bernhausen.",
         "audio": "audio/station-3.mp3",
         "radius": 75,
-        "color": "#8e44ad"
+        "color": "#8e44ad",
+        "region": "Filderstadt-Bernhausen"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [9.21030, 48.67310]
+        "coordinates": [
+          9.2103,
+          48.6731
+        ]
       }
     },
     {
@@ -54,17 +262,33 @@
         "name": "Testzone Nord (Polygon)",
         "description": "Beispielhaftes Flächen-Geofence nördlich der Gotthard-Müller-Straße.",
         "audio": "audio/zone-nord.mp3",
-        "color": "#2e8b57"
+        "color": "#2e8b57",
+        "region": "Filderstadt-Bernhausen"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [9.20500, 48.67750],
-            [9.21150, 48.67750],
-            [9.21180, 48.67620],
-            [9.20520, 48.67620],
-            [9.20500, 48.67750]
+            [
+              9.205,
+              48.6775
+            ],
+            [
+              9.2115,
+              48.6775
+            ],
+            [
+              9.2118,
+              48.6762
+            ],
+            [
+              9.2052,
+              48.6762
+            ],
+            [
+              9.205,
+              48.6775
+            ]
           ]
         ]
       }

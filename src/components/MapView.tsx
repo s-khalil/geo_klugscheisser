@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   Circle,
   CircleMarker,
@@ -25,6 +25,8 @@ interface MapViewProps {
   followPosition: boolean;
   simulationMode: boolean;
   onSimulatedClick: (position: LatLng) => void;
+  /** Antippen einer Station startet ihre Geschichte sofort. */
+  onSelectGeofence: (geofence: Geofence) => void;
 }
 
 const toLatLngExpression = (point: LatLng): LatLngExpression => [point.lat, point.lng];
@@ -47,6 +49,44 @@ function FollowPosition({
   return null;
 }
 
+/**
+ * Zeigt beim ersten Laden alle Stationen, solange noch keine Position
+ * vorliegt – so landet der Nutzer nicht auf einer leeren Karte, egal in
+ * welcher Region die Daten liegen.
+ */
+function FitToGeofences({
+  geofences,
+  active,
+}: {
+  geofences: Geofence[];
+  active: boolean;
+}) {
+  const map = useMap();
+  const done = useRef(false);
+
+  useEffect(() => {
+    if (!active || done.current || geofences.length === 0) return;
+
+    // Liegen mehrere Regionen in den Daten, würde ein gemeinsamer Ausschnitt
+    // halb Deutschland zeigen. Also nur die Region der ersten Station.
+    const region = geofences[0].region;
+    const inRegion = region
+      ? geofences.filter((geofence) => geofence.region === region)
+      : geofences;
+
+    const points = inRegion.flatMap((geofence) =>
+      geofence.kind === 'circle'
+        ? [toLatLngExpression(geofence.center)]
+        : geofence.rings[0].map(toLatLngExpression),
+    );
+
+    map.fitBounds(points as [number, number][], { padding: [40, 40] });
+    done.current = true;
+  }, [map, geofences, active]);
+
+  return null;
+}
+
 /** Im Simulationsmodus setzt ein Klick auf die Karte die Position. */
 function SimulationClickHandler({
   enabled,
@@ -65,7 +105,15 @@ function SimulationClickHandler({
   return null;
 }
 
-function GeofenceShape({ geofence, active }: { geofence: Geofence; active: boolean }) {
+function GeofenceShape({
+  geofence,
+  active,
+  onSelect,
+}: {
+  geofence: Geofence;
+  active: boolean;
+  onSelect: (geofence: Geofence) => void;
+}) {
   const pathOptions = {
     color: geofence.color,
     weight: active ? 4 : 2,
@@ -75,11 +123,13 @@ function GeofenceShape({ geofence, active }: { geofence: Geofence; active: boole
     dashArray: active ? undefined : '4 6',
   };
 
+  const eventHandlers = { click: () => onSelect(geofence) };
+
   const tooltip = (
     <Tooltip direction="top" sticky>
       <strong>{geofence.name}</strong>
       {geofence.description ? <div>{geofence.description}</div> : null}
-      <div>{active ? 'aktiv – Audio ausgelöst' : 'inaktiv'}</div>
+      <div>{active ? 'aktiv – Geschichte ausgelöst' : 'Antippen zum Anhören'}</div>
     </Tooltip>
   );
 
@@ -89,6 +139,7 @@ function GeofenceShape({ geofence, active }: { geofence: Geofence; active: boole
         center={toLatLngExpression(geofence.center)}
         radius={geofence.radiusMeters}
         pathOptions={pathOptions}
+        eventHandlers={eventHandlers}
       >
         {tooltip}
       </Circle>
@@ -99,6 +150,7 @@ function GeofenceShape({ geofence, active }: { geofence: Geofence; active: boole
     <Polygon
       positions={geofence.rings.map((ring) => ring.map(toLatLngExpression))}
       pathOptions={pathOptions}
+      eventHandlers={eventHandlers}
     >
       {tooltip}
     </Polygon>
@@ -114,6 +166,7 @@ export function MapView({
   followPosition,
   simulationMode,
   onSimulatedClick,
+  onSelectGeofence,
 }: MapViewProps) {
   const activeSet = new Set(activeIds);
 
@@ -135,6 +188,7 @@ export function MapView({
           key={geofence.id}
           geofence={geofence}
           active={activeSet.has(geofence.id)}
+          onSelect={onSelectGeofence}
         />
       ))}
 
@@ -167,6 +221,7 @@ export function MapView({
         </>
       ) : null}
 
+      <FitToGeofences geofences={geofences} active={position === null} />
       <FollowPosition position={position} enabled={followPosition} />
       <SimulationClickHandler enabled={simulationMode} onSimulatedClick={onSimulatedClick} />
     </MapContainer>

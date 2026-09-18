@@ -251,6 +251,63 @@ code {
   }
 }
 
+.card--player {
+  border-color: var(--primary);
+  box-shadow: 0 1px 6px rgba(26, 115, 232, 0.12);
+}
+
+.player__title {
+  margin: 0 0 8px;
+}
+
+.player__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.player__controls .button {
+  min-width: 56px;
+}
+
+.transcript {
+  max-height: 220px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0 0 0 4px;
+  list-style: none;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.transcript__line {
+  padding: 3px 6px;
+  border-left: 3px solid transparent;
+  color: var(--muted);
+}
+
+.transcript__line--active {
+  border-left-color: var(--primary);
+  background: #f2f7ff;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.sources {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+.sources summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.sources a {
+  color: var(--primary);
+}
+
 /* Leaflet setzt nach einem Klick einen Fokusrahmen um die Fläche. */
 .leaflet-interactive:focus {
   outline: none;

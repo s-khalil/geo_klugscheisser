@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MapView } from './components/MapView';
+import { PlayerPanel } from './components/PlayerPanel';
 import { StatusPanel } from './components/StatusPanel';
 import { useAudioGuide } from './hooks/useAudioGuide';
 import { useGeofenceEngine } from './hooks/useGeofenceEngine';
@@ -7,7 +8,11 @@ import { useGeolocation } from './hooks/useGeolocation';
 import { loadGeofences, type Geofence } from './lib/geofences';
 import type { LatLng } from './lib/geometry';
 
-/** Testregion: Gotthard-Müller-Straße, 70794 Filderstadt-Bernhausen. */
+/**
+ * Rückfallposition, falls noch keine Stationen geladen sind. Sobald Daten
+ * vorliegen, zeigt die Karte sie vollständig (siehe MapView), unabhängig
+ * von der Region.
+ */
 const DEFAULT_CENTER: LatLng = { lat: 48.6751, lng: 9.2091 };
 const DEFAULT_ZOOM = 16;
 const GEOJSON_URL = `${import.meta.env.BASE_URL}geofences.geojson`;
@@ -21,6 +26,11 @@ export default function App() {
 
   const geo = useGeolocation();
   const audio = useAudioGuide();
+
+  const stationById = useMemo(
+    () => new Map(geofences.map((geofence) => [geofence.id, geofence])),
+    [geofences],
+  );
 
   const { evaluations, activeIds, history } = useGeofenceEngine({
     position: geo.position,
@@ -50,6 +60,14 @@ export default function App() {
     geo.start();
   }, [audio, geo]);
 
+  const selectGeofence = useCallback(
+    async (geofence: Parameters<typeof audio.playNow>[0]) => {
+      await audio.unlock();
+      audio.playNow(geofence);
+    },
+    [audio],
+  );
+
   const toggleSimulation = useCallback(async () => {
     const next = !simulationMode;
     setSimulationMode(next);
@@ -67,7 +85,7 @@ export default function App() {
         <header className="sidebar__header">
           <h1>Geo-Audioguide</h1>
           <p className="muted">
-            Prototyp · Testregion Gotthard-Müller-Straße, 70794 Filderstadt
+            Prototyp · Stationen in Berlin-Charlottenburg und Filderstadt-Bernhausen
           </p>
         </header>
 
@@ -86,16 +104,8 @@ export default function App() {
           <button type="button" className="button" onClick={audio.unlock} disabled={audio.unlocked}>
             Audio aktivieren
           </button>
-          <button
-            type="button"
-            className="button"
-            onClick={audio.stop}
-            disabled={!audio.current && audio.queue.length === 0}
-          >
-            Wiedergabe stoppen
-          </button>
           <button type="button" className="button" onClick={reloadGeofences}>
-            Geofences neu laden
+            Stationen neu laden
           </button>
         </div>
 
@@ -115,6 +125,11 @@ export default function App() {
         </div>
 
         {loadError ? <p className="message message--error">{loadError}</p> : null}
+
+        <PlayerPanel
+          audio={audio}
+          station={audio.current ? (stationById.get(audio.current.id) ?? null) : null}
+        />
 
         <StatusPanel
           gpsStatus={geo.status}
@@ -138,6 +153,7 @@ export default function App() {
           followPosition={followPosition}
           simulationMode={simulationMode}
           onSimulatedClick={geo.setSimulatedPosition}
+          onSelectGeofence={selectGeofence}
         />
         {simulationMode ? (
           <div className="map-hint">Simulationsmodus: Klick auf die Karte setzt die Position.</div>

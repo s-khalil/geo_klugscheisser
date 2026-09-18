@@ -1,9 +1,13 @@
 /**
- * Laden und Validieren der Geofences aus einer GeoJSON-FeatureCollection.
+ * Laden und Validieren der Stationen aus einer GeoJSON-FeatureCollection.
  *
- * Unterstützt werden zunächst:
+ * Unterstützte Geometrien:
  *  - Point   + properties.radius (Meter)  -> Kreis-Geofence
  *  - Polygon (inkl. Löcher)               -> Polygon-Geofence
+ *
+ * Inhalt einer Station: entweder ein Sprechtext (properties.text), der über
+ * die Sprachausgabe vorgelesen wird, oder eine fertige Audiodatei
+ * (properties.audio) – oder beides, dann gewinnt die Datei.
  */
 
 import type { Feature, FeatureCollection, Geometry, Position } from 'geojson';
@@ -16,12 +20,26 @@ import {
   type Ring,
 } from './geometry';
 
+/** Beleg für die Aussagen einer Station. */
+export interface StationSource {
+  title: string;
+  url: string;
+  /** Abrufdatum im Format YYYY-MM-DD. */
+  retrieved?: string;
+}
+
 interface GeofenceBase {
   id: string;
   name: string;
   description?: string;
-  /** Pfad oder URL der MP3-Datei, die beim Betreten abgespielt wird. */
-  audioUrl: string;
+  /** Sprechtext der Station; wird satzweise vorgelesen. */
+  text?: string;
+  /** Pfad oder URL einer fertigen Audiodatei; hat Vorrang vor dem Text. */
+  audioUrl?: string;
+  sources: StationSource[];
+  tags: string[];
+  /** Regionsname; die Karte zeigt beim Start nur die erste Region. */
+  region?: string;
   color: string;
 }
 
@@ -65,6 +83,23 @@ function resolveAudioUrl(raw: string): string {
   return new URL(raw, document.baseURI).toString();
 }
 
+function readSources(value: unknown): StationSource[] {
+  if (!Array.isArray(value)) return [];
+
+  return value.flatMap((entry) => {
+    if (typeof entry !== 'object' || entry === null) return [];
+    const record = entry as Record<string, unknown>;
+    const url = readString(record.url);
+    if (!url) return [];
+
+    return [{
+      title: readString(record.title) ?? url,
+      url,
+      retrieved: readString(record.retrieved),
+    }];
+  });
+}
+
 function readString(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() !== '' ? value.trim() : undefined;
 }
@@ -78,6 +113,7 @@ function parseFeature(
   const label = readString(props.name) ?? `Geofence #${index + 1}`;
   const id = readString(props.id) ?? readString(feature.id as string) ?? `geofence-${index}`;
   const audioUrl = readString(props.audio) ?? readString(props.audioUrl);
+  const text = readString(props.text);
   const geometry = feature.geometry;
 
   if (!geometry) {
@@ -85,8 +121,10 @@ function parseFeature(
     return null;
   }
 
-  if (!audioUrl) {
-    warnings.push(`"${label}": keine Audiodatei in properties.audio – übersprungen.`);
+  if (!audioUrl && !text) {
+    warnings.push(
+      `"${label}": weder properties.text noch properties.audio – übersprungen.`,
+    );
     return null;
   }
 
@@ -94,7 +132,11 @@ function parseFeature(
     id,
     name: label,
     description: readString(props.description),
-    audioUrl: resolveAudioUrl(audioUrl),
+    text,
+    audioUrl: audioUrl ? resolveAudioUrl(audioUrl) : undefined,
+    sources: readSources(props.sources),
+    tags: Array.isArray(props.tags) ? props.tags.filter((tag): tag is string => typeof tag === 'string') : [],
+    region: readString(props.region),
     color: readString(props.color) ?? DEFAULT_COLOR,
   };
 

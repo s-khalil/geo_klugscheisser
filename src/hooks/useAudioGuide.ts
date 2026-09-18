@@ -7,13 +7,19 @@ const EMPTY_SNAPSHOT: AudioGuideSnapshot = {
   lastPlayed: null,
   queue: [],
   unlocked: false,
-  speaking: false,
   error: null,
 };
 
 export interface AudioGuideApi extends AudioGuideSnapshot {
   unlock: () => Promise<void>;
+  /** Station beim Betreten eines Geofence einreihen. */
   play: (geofence: Geofence) => void;
+  /** Station sofort starten (Antippen auf der Karte). */
+  playNow: (geofence: Geofence) => void;
+  pause: () => void;
+  resume: () => void;
+  next: () => void;
+  previous: () => void;
   stop: () => void;
 }
 
@@ -39,9 +45,18 @@ export function useAudioGuide(): AudioGuideApi {
     guideRef.current?.enqueue(geofence);
   }, []);
 
-  const stop = useCallback(() => {
-    guideRef.current?.stop();
+  const playNow = useCallback((geofence: Geofence) => {
+    guideRef.current?.playNow(geofence);
   }, []);
 
-  return useMemo(() => ({ ...snapshot, unlock, play, stop }), [snapshot, unlock, play, stop]);
+  const pause = useCallback(() => guideRef.current?.pause(), []);
+  const resume = useCallback(() => guideRef.current?.resume(), []);
+  const next = useCallback(() => guideRef.current?.next(), []);
+  const previous = useCallback(() => guideRef.current?.previous(), []);
+  const stop = useCallback(() => guideRef.current?.stop(), []);
+
+  return useMemo(
+    () => ({ ...snapshot, unlock, play, playNow, pause, resume, next, previous, stop }),
+    [snapshot, unlock, play, playNow, pause, resume, next, previous, stop],
+  );
 }

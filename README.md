@@ -2,10 +2,11 @@
 
 React-+-TypeScript-Prototyp eines standortbasierten Audioguides: Die App zeigt
 eine OpenStreetMap-Karte, verfolgt nach Freigabe die Position des Nutzers und
-spielt automatisch die MP3 ab, die dem betretenen Geofence zugeordnet ist.
+startet automatisch die Geschichte der Station, deren Geofence er betritt.
 
-**Testregion:** Gotthard-Müller-Straße, 70794 Filderstadt-Bernhausen
-(Kartenmittelpunkt 48.6751 / 9.2091).
+**Regionen:** Berlin-Charlottenburg (sechs recherchierte Stationen zwischen
+Stuttgarter Platz und Adenauerplatz) und Filderstadt-Bernhausen (Testdaten mit
+Platzhalter-Audio).
 
 ## Funktionsumfang
 
@@ -17,8 +18,17 @@ spielt automatisch die MP3 ab, die dem betretenen Geofence zugeordnet ist.
   - `Polygon` (inkl. Löcher) → Flächen-Geofence
   - Nicht unterstützte oder unvollständige Features werden übersprungen und als
     Hinweis im UI angezeigt.
+- **Zwei Inhaltsquellen hinter einer Wiedergabe-Schnittstelle**:
+  - `properties.text` → die Sprachausgabe des Browsers liest den Text **satzweise**
+    vor. Pause hält beim aktuellen Satz an, „Weiter" setzt dort neu an – der
+    verlässliche Weg, weil `speechSynthesis.pause()` auf Android Chrome nicht
+    zuverlässig arbeitet.
+  - `properties.audio` → fertige Audiodatei; hat Vorrang, sobald sie vorliegt.
+- **Transkript** mit hervorgehobenem aktuellem Satz, Sprungmarken vor und zurück
+  sowie ausklappbaren Quellenangaben je Station.
 - **Automatische Wiedergabe** beim Betreten eines Geofence; mehrere gleichzeitig
-  betretene Geofences werden nacheinander abgespielt (Warteschlange).
+  betretene Geofences werden nacheinander abgespielt (Warteschlange). Antippen
+  einer Station auf der Karte startet sie sofort.
 - **Kein wiederholtes Auslösen**, solange sich der Nutzer im Geofence befindet.
   Erst nach dem Verlassen ist der Geofence wieder „scharf“. Eine Hysterese von
   10 m verhindert Flattern durch GPS-Rauschen am Rand.
@@ -95,11 +105,13 @@ dann ganz normal abgespielt. Details: `public/audio/README.md`.
 src/
   lib/geometry.ts        Haversine, Punkt-in-Polygon, Abstand zum Polygonrand
   lib/geofences.ts       GeoJSON laden, validieren, in Geofence-Modelle wandeln
-  lib/audioGuide.ts      Wiedergabe, Warteschlange, Autoplay-Freigabe, Fallback
+  lib/audioGuide.ts      Wiedergabe (Sprachausgabe satzweise oder MP3), Warteschlange
+  lib/sentences.ts       Satzzerlegung für pausierbare Sprachausgabe
   hooks/useGeolocation   watchPosition-Wrapper inkl. Simulationsmodus
   hooks/useGeofenceEngine Auswertung pro Positionsupdate, Enter-/Exit-Events
   hooks/useAudioGuide    React-Anbindung von lib/audioGuide.ts
   components/MapView     Leaflet-Karte, Geofence-Darstellung, Klick-Simulation
+  components/PlayerPanel Transkript, Steuerung, Quellenangaben
   components/StatusPanel GPS-, Geofence- und Audio-Status
 public/
   geofences.geojson      Testdaten

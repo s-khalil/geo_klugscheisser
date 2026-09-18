@@ -9,7 +9,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "audio:placeholders": "node scripts/generate-placeholder-audio.mjs",
-    "build:pages": "tsc -b && vite build --base ./ --outDir docs"
+    "build:pages": "tsc -b && vite build --base ./ --outDir docs && node -e \"require('fs').writeFileSync('docs/.nojekyll', '')\""
   },
   "dependencies": {
     "leaflet": "^1.9.4",
